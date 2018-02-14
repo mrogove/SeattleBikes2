@@ -114,3 +114,10 @@ and strftime('%Y-%m-%d', TimestampRecord) = '2017-10-01'
 
 --source data has duplicate month for one file. 
 --in notebook, added dedupe clause on key (name,timestamprecord)
+
+--get average rides/day; assign across all months. many assumptions.
+SELECT SUM(TOTALCOUNT)*24.0/count(*) AS AVG
+	, NAME
+	, strftime('%m',TimestampRecord) as MONTH
+FROM CLEANBIKECOUNT
+GROUP BY NAME,strftime('%m',TimestampRecord);
